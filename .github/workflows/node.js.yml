@@ -16,7 +16,7 @@ jobs:
 
     env:
       NODE_ENV: development
-      DB_HOST: localhost
+      DB_HOST: 127.0.0.1
       DB_USER: myusername
       DB_PASS: mypassword
       DB_NAME: cicdtest
@@ -48,6 +48,10 @@ jobs:
           echo "DB_PASS=${{ env.DB_PASS }}" >> .env
           echo "DB_NAME=${{ env.DB_NAME }}" >> .env
           echo "PORT=${{ env.PORT }}" >> .env
+
+      - name: Verify database connection
+        run: |
+          mysql -h 127.0.0.1 -u "${{ env.DB_USER }}" -p"${{ env.DB_PASS }}" "${{ env.DB_NAME }}" -e "SHOW TABLES;"
 
       - name: Run tests
         run: npm test
