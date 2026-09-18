@@ -1,3 +1,63 @@
+# GitHub Actions CI
+
+Tässä tehtävässä harjoittelin GitHub Actionsin käyttöä. Projektissa käytetään Node.js:ää ja MySQL-tietokantaa.
+
+## Mitä tein
+
+Tein GitHub Actions -workflow'n.
+
+Se käynnistyy automaattisesti, kun:
+
+* koodia lisätään `main`-haaraan
+* tehdään pull request
+
+Workflow tekee nämä asiat:
+
+* hakee projektin GitHubista
+* asentaa Node.js-paketit komennolla `npm ci`
+* käynnistää MySQL-tietokannan
+* luo testitietokannan tiedostolla `db/create-db.sql`
+* luo `.env`-tiedoston
+* ajaa testit komennolla `npm test`
+
+Testasin projektin ensin myös omalla tietokoneella.
+
+Testin tulos:
+
+* 2 test suitea meni läpi
+* 12 testiä meni läpi
+
+## Lisätoiminnot
+
+Lisäsin workflow'hun myös muita toimintoja.
+
+Testit ajetaan kolmella Node.js-versiolla:
+
+* Node.js 18
+* Node.js 20
+* Node.js 22
+
+Workflow tarkistaa myös tietokantayhteyden ennen testejä.
+
+Se tarkistaa, että sovellus saa yhteyden MySQL-tietokantaan ja että tietokannan taulut ovat olemassa.
+
+## Ongelmat ja ratkaisut
+
+Minulla oli ongelma MySQL-yhteyden kanssa GitHub Actionsissa.
+
+Aluksi tietokantaa ei voitu luoda, koska GitHub Actions ei saanut yhteyttä MySQL:ään root-käyttäjällä.
+
+Korjasin tietokannan luomiseen käytetyn komennon.
+
+Lisäsin myös tarkistuksen, joka testaa tietokantayhteyden.
+
+Sen jälkeen GitHub Actions ja kaikki testit toimivat oikein.
+
+
+
+
+
+
 # Simple Node CI/CD demo including integration testing
 
 Tests & code based on <https://github.com/ilkkamtk/integration-testing-ready>
